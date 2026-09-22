@@ -69,13 +69,11 @@ def send_telegram(message):
         return False
 
 
-
 # ============================================================
 # ID ЗАЯВКИ
 # ============================================================
 
 def generate_request_id():
-
     return secrets.token_hex(4).upper()
 
 
@@ -85,7 +83,6 @@ def generate_request_id():
 
 @app.route("/")
 def index():
-
     return send_file("index.html")
 
 
@@ -108,18 +105,12 @@ def submit():
         data.get("server", "")
     ).strip()
 
-
-    # Проверяем поля
-
     if not coupon or not server:
 
         return jsonify({
             "success": False,
             "error": "Заполните оба поля."
         }), 400
-
-
-    # Ограничение длины
 
     if len(coupon) > 200:
 
@@ -128,7 +119,6 @@ def submit():
             "error": "Купон слишком длинный."
         }), 400
 
-
     if len(server) > 200:
 
         return jsonify({
@@ -136,20 +126,11 @@ def submit():
             "error": "Сервер слишком длинный."
         }), 400
 
-
-    # Создаём ID
-
     request_id = generate_request_id()
-
-
-    # Время
 
     created_at = datetime.now().strftime(
         "%d.%m.%Y %H:%M:%S"
     )
-
-
-    # Сохраняем заявку
 
     requests_storage[request_id] = {
 
@@ -163,7 +144,6 @@ def submit():
 
         "confirmed": False
     }
-
 
     # ========================================================
     # ПЕРВОЕ СООБЩЕНИЕ TELEGRAM
@@ -189,11 +169,9 @@ def submit():
         "ожидается ник"
     )
 
-
     telegram_ok = send_telegram(
         telegram_message
     )
-
 
     if not telegram_ok:
 
@@ -211,9 +189,6 @@ def submit():
                 "Проверьте Telegram и Railway Logs."
 
         }), 500
-
-
-    # Возвращаем ID браузеру
 
     return jsonify({
 
@@ -235,18 +210,13 @@ def confirm():
         silent=True
     ) or {}
 
-
     request_id = str(
         data.get("request_id", "")
     ).strip()
 
-
     nickname = str(
         data.get("nickname", "")
     ).strip()
-
-
-    # Проверка ID
 
     if not request_id:
 
@@ -259,9 +229,6 @@ def confirm():
 
         }), 400
 
-
-    # Проверка ника
-
     if not nickname:
 
         return jsonify({
@@ -272,7 +239,6 @@ def confirm():
                 "Введите ник."
 
         }), 400
-
 
     if len(nickname) > 100:
 
@@ -285,13 +251,9 @@ def confirm():
 
         }), 400
 
-
-    # Ищем заявку
-
     application = requests_storage.get(
         request_id
     )
-
 
     if not application:
 
@@ -304,9 +266,6 @@ def confirm():
 
         }), 404
 
-
-    # Проверяем, не подтверждали ли уже
-
     if application["confirmed"]:
 
         return jsonify({
@@ -318,20 +277,13 @@ def confirm():
 
         }), 400
 
-
-    # Записываем ник
-
     application["nickname"] = nickname
 
     application["confirmed"] = True
 
-
-    # Время подтверждения
-
     confirmed_at = datetime.now().strftime(
         "%d.%m.%Y %H:%M:%S"
     )
-
 
     # ========================================================
     # ВТОРОЕ СООБЩЕНИЕ TELEGRAM
@@ -359,11 +311,9 @@ def confirm():
         "🟢 Статус: подтверждено"
     )
 
-
     telegram_ok = send_telegram(
         telegram_message
     )
-
 
     if not telegram_ok:
 
@@ -376,7 +326,6 @@ def confirm():
                 "Проверьте Telegram и Railway Logs."
 
         }), 500
-
 
     return jsonify({
 

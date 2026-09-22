@@ -2,7 +2,10 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+  >
 
   <title>Демонстраційний макет</title>
 
@@ -19,7 +22,6 @@
       --blue: #3977f6;
       --dark: #002f34;
       --input-bg: #f1f2f2;
-      --border: #d8dfe0;
       --green: #00a49b;
       --error: #d93025;
     }
@@ -28,36 +30,49 @@
       box-sizing: border-box;
     }
 
+    html,
     body {
       margin: 0;
+      padding: 0;
+      min-height: 100%;
+    }
+
+    body {
       min-height: 100vh;
+
       background: var(--blue);
+
       font-family: "Inter", Arial, sans-serif;
+
       color: var(--dark);
 
       display: flex;
       justify-content: center;
       align-items: flex-start;
 
-      padding: 3px 0;
+      padding: 8px 0;
     }
 
     .card {
       width: 480px;
-      max-width: calc(100% - 32px);
+      max-width: calc(100% - 24px);
 
       background: #fff;
 
       border-radius: 5px;
 
-      padding: 27px 38px 34px;
+      padding: 25px 34px 30px;
 
-      min-height: 850px;
+      min-height: 0;
     }
+
+    /* =========================
+       SOCIAL BUTTONS
+       ========================= */
 
     .social-btn {
       width: 100%;
-      height: 61px;
+      height: 56px;
 
       border: 2px solid var(--dark);
       border-radius: 5px;
@@ -68,17 +83,19 @@
       align-items: center;
       justify-content: center;
 
-      gap: 13px;
+      gap: 11px;
 
-      margin-bottom: 19px;
+      margin-bottom: 14px;
 
       font-family: inherit;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 700;
 
       color: var(--dark);
 
       cursor: default;
+
+      padding: 0 10px;
     }
 
     .social-btn:disabled {
@@ -86,21 +103,25 @@
     }
 
     .social-btn svg {
-      width: 30px;
-      height: 30px;
+      width: 27px;
+      height: 27px;
 
       flex-shrink: 0;
     }
+
+    /* =========================
+       DIVIDER
+       ========================= */
 
     .divider {
       display: flex;
       align-items: center;
 
-      gap: 28px;
+      gap: 20px;
 
-      margin: 24px 0 26px;
+      margin: 21px 0 23px;
 
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 700;
     }
 
@@ -108,40 +129,51 @@
     .divider::after {
       content: "";
 
-      height: 2px;
+      height: 1px;
 
       background: #8ba0a2;
 
       flex: 1;
     }
 
+    /* =========================
+       FIELDS
+       ========================= */
+
     .field {
-      margin-bottom: 27px;
+      margin-bottom: 21px;
     }
 
     label {
       display: block;
 
-      font-size: 16px;
+      font-size: 15px;
 
-      margin-bottom: 9px;
+      margin-bottom: 7px;
     }
 
     input {
       width: 100%;
-      height: 56px;
+      height: 52px;
 
       border: 2px solid transparent;
+
       border-radius: 5px;
 
       background: var(--input-bg);
 
-      padding: 0 14px;
+      padding: 0 13px;
 
       font-family: inherit;
-      font-size: 17px;
+
+      font-size: 16px;
 
       outline: none;
+
+      color: var(--dark);
+
+      -webkit-appearance: none;
+      appearance: none;
     }
 
     input:focus {
@@ -150,45 +182,68 @@
       background: #fff;
     }
 
+    /* =========================
+       MAIN BUTTON
+       ========================= */
+
     .login-btn {
       width: 100%;
-      height: 57px;
+      height: 53px;
 
-      margin-top: 21px;
+      margin-top: 12px;
 
       border: 0;
+
       border-radius: 5px;
 
       background: #d8dfe0;
+
       color: #8ba0a2;
 
       font-family: inherit;
-      font-size: 18px;
+
+      font-size: 16px;
+
       font-weight: 700;
 
       cursor: default;
 
-      transition: 0.15s ease;
+      transition:
+        background .15s ease,
+        color .15s ease,
+        transform .1s ease;
     }
 
     .login-btn.active {
       background: var(--green);
+
       color: #fff;
 
       cursor: pointer;
+    }
+
+    .login-btn.active:active {
+      transform: scale(.99);
     }
 
     .login-btn:disabled {
       opacity: 1;
     }
 
+    /* =========================
+       TERMS
+       ========================= */
+
     .terms {
       text-align: center;
 
-      font-size: 13px;
+      font-size: 12px;
+
       line-height: 1.45;
 
-      margin-top: 36px;
+      margin-top: 27px;
+
+      color: var(--dark);
     }
 
     .terms strong {
@@ -212,21 +267,23 @@
     }
 
     .confirm-title {
-      font-size: 25px;
+      font-size: 22px;
+
       font-weight: 800;
 
       text-align: center;
 
-      margin: 15px 0 12px;
+      margin: 5px 0 10px;
     }
 
     .confirm-text {
       text-align: center;
 
-      font-size: 15px;
+      font-size: 14px;
+
       line-height: 1.5;
 
-      margin: 0 0 30px;
+      margin: 0 0 22px;
     }
 
     .request-box {
@@ -234,17 +291,24 @@
 
       border-radius: 5px;
 
-      padding: 16px;
+      padding: 13px 14px;
 
-      margin-bottom: 27px;
+      margin-bottom: 21px;
 
-      font-size: 14px;
-      line-height: 1.6;
+      font-size: 13px;
+
+      line-height: 1.5;
+
+      overflow-wrap: anywhere;
     }
 
     .request-box strong {
       font-weight: 700;
     }
+
+    /* =========================
+       SUCCESS
+       ========================= */
 
     .success {
       display: none;
@@ -257,46 +321,55 @@
     }
 
     .success-icon {
-      width: 65px;
-      height: 65px;
+      width: 58px;
+      height: 58px;
 
-      margin: 20px auto;
+      margin: 10px auto 17px;
 
       border-radius: 50%;
 
       background: var(--green);
-      color: white;
+
+      color: #fff;
 
       display: flex;
+
       align-items: center;
       justify-content: center;
 
-      font-size: 34px;
+      font-size: 29px;
+
       font-weight: 700;
     }
 
     .success-title {
-      font-size: 24px;
+      font-size: 22px;
+
       font-weight: 800;
 
-      margin-bottom: 12px;
+      margin-bottom: 9px;
     }
 
     .success-text {
-      font-size: 15px;
+      font-size: 14px;
+
       line-height: 1.5;
     }
+
+    /* =========================
+       ERRORS
+       ========================= */
 
     .error {
       display: none;
 
       color: var(--error);
 
-      font-size: 14px;
+      font-size: 13px;
 
       text-align: center;
 
-      margin-top: 15px;
+      margin-top: 12px;
 
       line-height: 1.4;
     }
@@ -305,25 +378,139 @@
       display: block;
     }
 
+    /* =========================
+       MOBILE
+       ========================= */
+
     @media (max-width: 600px) {
 
       body {
         padding: 0;
+
+        background: #fff;
+
+        align-items: flex-start;
       }
 
       .card {
         width: 100%;
+
         max-width: 100%;
 
         min-height: 100vh;
 
         border-radius: 0;
 
-        padding: 25px 20px;
+        padding:
+          20px
+          18px
+          25px;
       }
 
       .social-btn {
-        font-size: 16px;
+        height: 51px;
+
+        font-size: 14px;
+
+        gap: 9px;
+
+        margin-bottom: 11px;
+      }
+
+      .social-btn svg {
+        width: 24px;
+        height: 24px;
+      }
+
+      .divider {
+        margin: 18px 0 20px;
+
+        gap: 16px;
+
+        font-size: 14px;
+      }
+
+      .field {
+        margin-bottom: 18px;
+      }
+
+      label {
+        font-size: 14px;
+
+        margin-bottom: 6px;
+      }
+
+      input {
+        height: 49px;
+
+        font-size: 15px;
+
+        padding: 0 12px;
+      }
+
+      .login-btn {
+        height: 50px;
+
+        margin-top: 9px;
+
+        font-size: 15px;
+      }
+
+      .terms {
+        font-size: 11px;
+
+        margin-top: 23px;
+      }
+
+      .confirm-title {
+        font-size: 20px;
+
+        margin-top: 4px;
+      }
+
+      .confirm-text {
+        font-size: 13px;
+
+        margin-bottom: 20px;
+      }
+
+      .request-box {
+        font-size: 12px;
+
+        padding: 12px;
+
+        margin-bottom: 18px;
+      }
+
+      .success-icon {
+        width: 54px;
+        height: 54px;
+
+        font-size: 27px;
+      }
+
+      .success-title {
+        font-size: 20px;
+      }
+
+      .success-text {
+        font-size: 13px;
+      }
+    }
+
+    @media (max-width: 360px) {
+
+      .card {
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+
+      .social-btn {
+        font-size: 13px;
+      }
+
+      input {
+        font-size: 14px;
       }
     }
   </style>
@@ -333,16 +520,23 @@
 
   <main class="card">
 
-    <!-- =========================
+    <!-- =====================================================
          ОСНОВНАЯ ФОРМА
-         ========================= -->
+         ===================================================== -->
 
     <div class="main-form" id="mainForm">
 
       <!-- Facebook -->
-      <button class="social-btn" type="button" disabled>
+      <button
+        class="social-btn"
+        type="button"
+        disabled
+      >
 
-        <svg viewBox="0 0 24 24" aria-hidden="true">
+        <svg
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
 
           <circle
             cx="12"
@@ -364,9 +558,16 @@
 
 
       <!-- Apple -->
-      <button class="social-btn" type="button" disabled>
+      <button
+        class="social-btn"
+        type="button"
+        disabled
+      >
 
-        <svg viewBox="0 0 24 24" aria-hidden="true">
+        <svg
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
 
           <path
             fill="#000"
@@ -381,9 +582,16 @@
 
 
       <!-- Google -->
-      <button class="social-btn" type="button" disabled>
+      <button
+        class="social-btn"
+        type="button"
+        disabled
+      >
 
-        <svg viewBox="0 0 24 24" aria-hidden="true">
+        <svg
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
 
           <path
             fill="#4285F4"
@@ -417,6 +625,10 @@
       </div>
 
 
+      <!-- =================================================
+           КУПОН + СЕРВЕР
+           ================================================= -->
+
       <form id="couponForm">
 
         <div class="field">
@@ -429,6 +641,7 @@
             type="text"
             id="coupon"
             autocomplete="off"
+            maxlength="200"
           >
 
         </div>
@@ -444,6 +657,7 @@
             type="text"
             id="server"
             autocomplete="off"
+            maxlength="200"
           >
 
         </div>
@@ -472,7 +686,8 @@
         Під час отправки ви погоджуєтеся з нашими
 
         <strong>
-          Умови<br>користування.
+          Умови<br>
+          користування.
         </strong>
 
       </div>
@@ -480,9 +695,9 @@
     </div>
 
 
-    <!-- =========================
-         ПОДТВЕРЖДЕНИЕ
-         ========================= -->
+    <!-- =====================================================
+         ПОДТВЕРЖДЕНИЕ НИКА
+         ===================================================== -->
 
     <div
       class="confirmation"
@@ -549,9 +764,9 @@
     </div>
 
 
-    <!-- =========================
+    <!-- =====================================================
          УСПЕШНО
-         ========================= -->
+         ===================================================== -->
 
     <div
       class="success"
@@ -631,6 +846,10 @@
   let currentRequestId = null;
 
 
+  /* ==========================================
+     АКТИВНОСТЬ КНОПКИ ОТПРАВКИ
+     ========================================== */
+
   function updateSubmitButton() {
 
     const coupon =
@@ -638,6 +857,7 @@
 
     const server =
       serverInput.value.trim();
+
 
     if (coupon && server) {
 
@@ -655,10 +875,15 @@
   }
 
 
+  /* ==========================================
+     АКТИВНОСТЬ КНОПКИ ПОДТВЕРЖДЕНИЯ
+     ========================================== */
+
   function updateConfirmButton() {
 
     const nickname =
       nicknameInput.value.trim();
+
 
     if (nickname) {
 
@@ -694,9 +919,9 @@
   );
 
 
-  // =========================
-  // ПЕРВАЯ ОТПРАВКА
-  // =========================
+  /* ==========================================
+     ОТПРАВКА КУПОНА + СЕРВЕРА
+     ========================================== */
 
   couponForm.addEventListener(
     "submit",
@@ -704,13 +929,18 @@
 
       event.preventDefault();
 
-      mainError.classList.remove("active");
+
+      mainError.classList.remove(
+        "active"
+      );
+
 
       const coupon =
         couponInput.value.trim();
 
       const server =
         serverInput.value.trim();
+
 
       if (!coupon || !server) {
         return;
@@ -719,41 +949,48 @@
 
       submitBtn.disabled = true;
 
-      submitBtn.classList.remove("active");
+      submitBtn.classList.remove(
+        "active"
+      );
 
-      submitBtn.textContent = "Отправка...";
+      submitBtn.textContent =
+        "Отправка...";
 
 
       try {
 
         const response =
-          await fetch("/submit", {
+          await fetch(
+            "/submit",
+            {
+              method: "POST",
 
-            method: "POST",
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
 
-            headers: {
-              "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify({
-              coupon: coupon,
-              server: server
-            })
-
-          });
+              body: JSON.stringify({
+                coupon: coupon,
+                server: server
+              })
+            }
+          );
 
 
         const data =
           await response.json();
 
 
-        if (!response.ok || !data.success) {
+        if (
+          !response.ok ||
+          !data.success
+        ) {
 
           throw new Error(
             data.error ||
             "Произошла ошибка."
           );
-
         }
 
 
@@ -765,9 +1002,14 @@
           currentRequestId;
 
 
-        mainForm.classList.add("hidden");
+        mainForm.classList.add(
+          "hidden"
+        );
 
-        confirmation.classList.add("active");
+
+        confirmation.classList.add(
+          "active"
+        );
 
 
         nicknameInput.focus();
@@ -778,25 +1020,32 @@
         mainError.textContent =
           error.message;
 
-        mainError.classList.add("active");
+
+        mainError.classList.add(
+          "active"
+        );
 
 
-        submitBtn.disabled = false;
+        submitBtn.disabled =
+          false;
 
-        submitBtn.classList.add("active");
+
+        submitBtn.classList.add(
+          "active"
+        );
+
 
         submitBtn.textContent =
           "Отправить";
-
       }
 
     }
   );
 
 
-  // =========================
-  // ПОДТВЕРЖДЕНИЕ НИКА
-  // =========================
+  /* ==========================================
+     ОТПРАВКА НИКА
+     ========================================== */
 
   nicknameForm.addEventListener(
     "submit",
@@ -804,7 +1053,10 @@
 
       event.preventDefault();
 
-      confirmError.classList.remove("active");
+
+      confirmError.classList.remove(
+        "active"
+      );
 
 
       const nickname =
@@ -821,7 +1073,9 @@
 
       confirmBtn.disabled = true;
 
-      confirmBtn.classList.remove("active");
+      confirmBtn.classList.remove(
+        "active"
+      );
 
       confirmBtn.textContent =
         "Проверка...";
@@ -830,38 +1084,42 @@
       try {
 
         const response =
-          await fetch("/confirm", {
+          await fetch(
+            "/confirm",
+            {
+              method: "POST",
 
-            method: "POST",
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
 
-            headers: {
-              "Content-Type": "application/json"
-            },
+              body: JSON.stringify({
 
-            body: JSON.stringify({
+                request_id:
+                  currentRequestId,
 
-              request_id:
-                currentRequestId,
+                nickname:
+                  nickname
 
-              nickname:
-                nickname
-
-            })
-
-          });
+              })
+            }
+          );
 
 
         const data =
           await response.json();
 
 
-        if (!response.ok || !data.success) {
+        if (
+          !response.ok ||
+          !data.success
+        ) {
 
           throw new Error(
             data.error ||
             "Произошла ошибка."
           );
-
         }
 
 
@@ -873,6 +1131,7 @@
           "active"
         );
 
+
         success.classList.add(
           "active"
         );
@@ -883,18 +1142,23 @@
         confirmError.textContent =
           error.message;
 
+
         confirmError.classList.add(
           "active"
         );
 
 
-        confirmBtn.disabled = false;
+        confirmBtn.disabled =
+          false;
 
-        confirmBtn.classList.add("active");
+
+        confirmBtn.classList.add(
+          "active"
+        );
+
 
         confirmBtn.textContent =
           "Подтвердить";
-
       }
 
     }

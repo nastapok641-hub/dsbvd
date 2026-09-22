@@ -31,18 +31,21 @@ requests_storage = {}
 # ============================================================
 
 def send_telegram(message):
+    print("========== TELEGRAM DEBUG ==========")
+    print("BOT TOKEN EXISTS:", bool(BOT_TOKEN))
+    print("CHAT ID:", repr(CHAT_ID))
 
-    if not BOT_TOKEN or not CHAT_ID:
-        print("ERROR: BOT_TOKEN или CHAT_ID не заполнены")
+    if not BOT_TOKEN:
+        print("ERROR: BOT_TOKEN пустой")
         return False
 
-    url = (
-        f"https://api.telegram.org/"
-        f"bot{BOT_TOKEN}/sendMessage"
-    )
+    if not CHAT_ID:
+        print("ERROR: CHAT_ID пустой")
+        return False
+
+    url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
 
     try:
-
         response = requests.post(
             url,
             json={
@@ -53,26 +56,18 @@ def send_telegram(message):
             timeout=10
         )
 
-        print(
-            "TELEGRAM STATUS:",
-            response.status_code
-        )
-
-        print(
-            "TELEGRAM RESPONSE:",
-            response.text
-        )
+        print("HTTP STATUS:", response.status_code)
+        print("TELEGRAM RESPONSE:", response.text)
+        print("====================================")
 
         return response.ok
 
-    except requests.RequestException as error:
-
-        print(
-            "TELEGRAM REQUEST ERROR:",
-            repr(error)
-        )
+    except Exception as error:
+        print("TELEGRAM EXCEPTION:", repr(error))
+        print("====================================")
 
         return False
+
 
 
 # ============================================================
